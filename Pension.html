@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        window.onload = function () {
+			//initial values
+            document.getElementById("Annual").value = (20000).toFixed(2); 											//a
+            document.getElementById('Month').value = (Number(document.getElementById('Annual').value) / 12).toFixed(2);		//b
+            document.getElementById("Month").disabled = true;
+			document.getElementById("Rate").value = (0.82).toFixed(3);												//c
+            document.getElementById("Local").disabled = true;														//d			
+            document.getElementById("MonthRate").value = (0.871).toFixed(3);										//e
+            document.getElementById("LocalCurrency").disabled = true;												//f
+            document.getElementById("Maximum").disabled = true;														//g
+            document.getElementById("Minimum").disabled = true;														//h
+            document.getElementById("Payable").disabled = true;														//j
+			calculate();
+        }
+        function calculateAnnual() {
+            //document.getElementById('Annual').value = (document.getElementById('Month').value * 12).toFixed(2);
+            //calculate();
+        }
+        function calculateMonth() {
+            document.getElementById('Month').value = (document.getElementById('Annual').value / 12).toFixed(2);
+            calculate();
+        }
+        function calculate() {
+            document.getElementById('Local').value = (document.getElementById('Month').value * document.getElementById('Rate').value).toFixed(2);
+            document.getElementById('LocalCurrency').value = (document.getElementById('Month').value * document.getElementById('MonthRate').value).toFixed(2);
+            document.getElementById('Maximum').value = (document.getElementById('LocalCurrency').value * 1.1).toFixed(2);
+			
+			//calculate minimum
+			var min = (document.getElementById('Month').value * document.getElementById('Rate').value).toFixed(2);
+			var temp = (document.getElementById('Month').value * document.getElementById('Rate').value * 0.8).toFixed(2);			
+			if (temp > min) min = temp;
+            document.getElementById('Minimum').value = min;
+
+			//pay the maximum between d and f
+			var pay = Number(document.getElementById('LocalCurrency').value); // f
+			temp = Number(document.getElementById('Local').value); // d
+			if (temp > pay) pay = temp;
+			
+			//verify if below minimum
+			if (pay < min) pay = min;
+			
+			//not greater than maximum
+			temp = Number(document.getElementById('Maximum').value);
+			if (pay > temp) pay = temp;
+            document.getElementById('Payable').value = pay.toFixed(2);			
+        }
+    </script>
+</head>
+
+<body>
+
+	<form>
+	  <table>
+		<tr>
+		  <td style="text-align:left" colspan="2"><h2>Pension estimate</h2></td>
+		</tr>
+		<tr>
+		  <td style="text-align:right">Annual pension (USD)</td>
+		  <td style="text-align:left"><input id="Annual" type="text" name="Annual" oninput="calculateMonth();" /></td>
+		  <td style="text-align:left">(a)</td>
+		</tr>
+		<tr>
+		  <td style="text-align:right">Monthly pension (USD)</td>
+		  <td style="text-align:left"><input id="Month" type="text" name="Month" /></td>
+		  <td style="text-align:left">(b)</td>		  
+		</tr>
+		<tr>
+			<td style="text-align:left" colspan="2"> </td>
+		</tr>
+		<tr>
+		  <td style="text-align:left" colspan="2"><h2>Dollar track</h2></td>
+		</tr>
+
+		<tr>
+		  <td style="text-align:right">Quarterly Exchange Rate</td>
+		  <td style="text-align:left"><input id="Rate" type="text" name="Rate" oninput="calculate();" /></td>
+		  <td style="text-align:left">(c)</td>
+		 </tr>
+		<tr>
+		  <td style="text-align:right">Local (EUR)</td>
+		  <td style="text-align:left"><input id="Local" type="text" name="Local" /></td>
+		  <td style="text-align:left">(d)</td>		  
+		</tr>
+
+		<tr>
+			<td style="text-align:left" colspan="2"> </td>
+		</tr>
+		<tr>
+		  <td style="text-align:left" colspan="2"><h2>Local track</h2></td>
+		</tr>
+
+		<tr>
+		  <td style="text-align:right">36 Month Average Exchange Rate</td>
+		  <td style="text-align:left"><input id="MonthRate" type="text" name="MonthRate" oninput="calculate();" /></td>
+		  <td style="text-align:left">(e)</td>
+		</tr>
+		<tr>
+		  <td style="text-align:right">Local currency (EUR)</td>
+		  <td style="text-align:left"><input id="LocalCurrency" type="text" name="LocalCurrency" /></td>
+		  <td style="text-align:left">(f)</td>
+		</tr>
+		<tr>
+		  <td><br/></td>
+		  <td><br/></td>
+		  <td><br/></td>
+		</tr>		
+		<tr>
+		  <td style="text-align:right">Maximum (110%)</td>
+		  <td style="text-align:left"><input id="Maximum" type="text" name="Maximum" /></td>
+		  <td style="text-align:left">(g)</td>		  
+		</tr>
+		<tr>
+		  <td style="text-align:right">Minimum</td>
+		  <td style="text-align:left"><input id="Minimum" type="text" name="Minimum" /></td>
+		  <td style="text-align:left">(h)</td>			  
+		</tr>
+		<tr>
+		  <td><br/></td>
+		  <td><br/></td>
+		  <td><br/></td>
+		</tr>		
+		<tr>
+		  <td style="text-align:right">Amount Payable</td>
+		  <td style="text-align:left"><input id="Payable" type="text" name="Payable" /></td>
+		  <td style="text-align:left">(i)</td>		  
+		</tr>
+
+	  </table>
+	</form>
+	<p>(b) The monthly pension in dollars will be increased according to inflation in the USA, 
+		which can be found in <a href="https://www.unjspf.org/un-rates-of-exchange/" target="_blank">CPI Adjustments</a> by selecting 'United States'.</p>
+	
+	<p>(c) Value taken from <a href="https://www.unjspf.org/un-rates-of-exchange/" target="_blank">Exchange Rates</a> (as of September 2021).
+		The historical minimum was <b>0.643</b> in July 2008, and the historical maximum was <b>1.167</b> in July 2001.<br/>
+		(d) It is obtained by multiplying (b) and (c). In case of 'dollar track' it is the amount payable according to the last quarterly exchange rate (c).</p>
+	
+	<p>(e) This value will never change after retirement (36 consecutive calendar months up to and including the month of separation).<br/>
+		(f) It is obtained by multiplying (b) and (e). This value changes only if there is inflation (CPI Adjustement) in the country of residence (for example, in Austria in April 2020 was 3.6).</p>
+	
+	<p>(g) It is 110% of (f). It is the maximum amount to be paid.<br/>
+		(h) The minimum is the greater of the US dollar monthly base amount (b) multiplied by (c) or the 80% of the adjusted US dollar amount multiplied by (c).<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note that this simulation is performed at the time of retirement, therefore the multiplication of (b) by (c) is taken and the dollar inflation is not considered.<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the future this value may increase because it depends on the dollar inflation.</p>	
+
+
+	
+	<p>(i) Higher value between (d) or (f) subject to a maximum of (g) and a minimum of (h), as applicable.</p>		
+	
+	<p>Calculations are made according to the example on page 11 in the <a href="https://www.unjspf.org/documents/the-two-track/" target="_blank">The Two-Track</a> PDF.<br/>
+	In general it is recommended to change to the Local Track when the Exchange Range (c) is less than the 36 Month Average Exchange Rate (e).<br/>
+	Those who have been retired for some time and wish to change to the Local Track must take into account the CPI adjustment in the USA and in the country of residence.</p>
+	
+	<p><b>Disclaimer:</b> These calculations are for guidance only, consult your Pension Fund advisor before making a decision.<br/>
+	<b>Tip:</b> Enter in (c) the historical minimum and maximum values to observe the fluctuation in the amount payable.<br/>
+	Comments are welcome at roberto.fdez(at)chello.at, especially if an error is detected.</p>
+</body>
+</html>
