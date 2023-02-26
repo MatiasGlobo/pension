@@ -6,12 +6,12 @@
     <script>
         window.onload = function () {
 			//initial values
-            document.getElementById("Annual").value = (20000).toFixed(2); 											//a
+            document.getElementById("Annual").value = (0).toFixed(2); 											//a
             document.getElementById('Month').value = (Number(document.getElementById('Annual').value) / 12).toFixed(2);		//b
             document.getElementById("Month").disabled = true;
-			document.getElementById("Rate").value = (0.848).toFixed(3);												//c
+			document.getElementById("Rate").value = (0.998).toFixed(3);												//c
             document.getElementById("Local").disabled = true;														//d			
-            document.getElementById("MonthRate").value = (0.871).toFixed(3);										//e
+            document.getElementById("MonthRate").value = (0.890).toFixed(3);										//e
             document.getElementById("LocalCurrency").disabled = true;												//f
             document.getElementById("Maximum").disabled = true;														//g
             document.getElementById("Minimum").disabled = true;														//h
@@ -136,12 +136,12 @@
 	<p>(b) The monthly pension in dollars will be increased according to inflation in the USA, 
 		which can be found in <a href="https://www.unjspf.org/resources/exchange-rate-tables/" target="_blank">CPI Adjustments</a> by selecting 'United States'.</p>
 	
-	<p>(c) Value taken from <a href="https://www.unjspf.org/resources/exchange-rate-tables/" target="_blank">Exchange Rates</a> (as of December 2021).
+	<p>(c) Value taken from <a href="https://www.unjspf.org/resources/exchange-rate-tables/" target="_blank">Exchange Rates</a> (as of December 2022).
 		The historical minimum was <b>0.643</b> in July 2008, and the historical maximum was <b>1.167</b> in July 2001.<br/>
 		(d) It is obtained by multiplying (b) and (c). In case of 'dollar track' it is the amount payable according to the last quarterly exchange rate (c).</p>
 	
 	<p>(e) This value will never change after retirement (36 consecutive calendar months up to and including the month of separation).<br/>
-		(f) It is obtained by multiplying (b) and (e). This value changes only if there is inflation (CPI Adjustement) in the country of residence (for example, in Austria in April 2020 was 3.6).</p>
+		(f) It is obtained by multiplying (b) and (e). This value only changes when inflation (CPI adjustment) is reported in the country of residence (for example, in Austria in April 2022 was 5.5).</p>
 	
 	<p>(g) It is 110% of (f). It is the maximum amount to be paid.<br/>
 		(h) The minimum is the greater of the US dollar monthly base amount (b) multiplied by (c) or the 80% of the adjusted US dollar amount multiplied by (c).<br/>
@@ -154,10 +154,10 @@
 	
 	<p>Calculations are made according to the example on page 11 in the <a href="https://www.unjspf.org/wp-content/uploads/2017/02/brochure-two_track2010.pdf" target="_blank">The Two-Track</a> PDF.<br/>
 	In general it is recommended to change to the Local Track when the Exchange Range (c) is less than the 36 Month Average Exchange Rate (e).<br/>
-	Those who have been retired for some time and wish to change to the Local Track must take into account the CPI adjustment in the USA and in the country of residence.</p>
+	Those who have been retired for some time and wish to change to the Local Track must take into account the CPI adjustment in the USA and in their country of residence.</p>
 	
 	<p><b>Disclaimer:</b> These calculations are for guidance only, consult your Pension Fund advisor before making a decision.<br/>
 	<b>Tip:</b> Enter in (c) the historical minimum and maximum values to observe the fluctuation in the amount payable.<br/>
-	Comments are welcome at matiaselglobero(at)yahoo.com, especially if an error is detected.</p>
+	Comments are welcome at robertoyfamilia(at)yahoo.com, especially if an error is detected.</p>
 </body>
 </html>
